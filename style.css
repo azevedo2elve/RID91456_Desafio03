@@ -43,6 +43,9 @@ body {
             border-radius: .8rem;
             border: 0.1rem solid #EEEEEE;
             padding: 1.6rem 2.4rem;
+            
+            font-size: 1.6rem;
+            font-weight: 400;
         }
 
         button {

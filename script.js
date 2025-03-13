@@ -1,16 +1,16 @@
-let createTask = (titleText, tagText, dateText) => {
-    let list = document.querySelector('#todo-list');
+const renderTaskList = (task) => {
+    const list = document.querySelector('#todo-list');
 
-
-    let toDo = document.createElement('li');
-    let titleToDo = document.createElement('h3');
-    let tagToDo = document.createElement('p');
-    let date = document.createElement('p');
-    let button = document.createElement('button');
+    const toDo = document.createElement('li');
+    const title_ToDo = document.createElement('h3');
+    const tagToDo = document.createElement('p');
+    const date = document.createElement('p');
+    const button = document.createElement('button');
     button.textContent = 'Concluir';
+    const taskId = `${task.id}-task`;
     
-    let divText = toDo.appendChild(document.createElement('div'));
-    divText.appendChild(titleToDo);
+    const divText = toDo.appendChild(document.createElement('div'));
+    divText.appendChild(title_ToDo);
     let divTagDate = divText.appendChild(document.createElement('div'));
     divTagDate.appendChild(tagToDo);
     divTagDate.appendChild(date);
@@ -22,16 +22,70 @@ let createTask = (titleText, tagText, dateText) => {
     divTagDate.className = 'tag-date';
     tagToDo.className = 'tag';
     date.className = 'date';
-
-    titleToDo.textContent = titleText;
-    tagToDo.textContent = tagText;
-    date.textContent = dateText;
+    
+    toDo.id = taskId;
+    title_ToDo.textContent = task.title;
+    tagToDo.textContent = task.tag;
+    date.textContent = task.date;
+    button.setAttribute('completed', task.completed);
 }
 
-window.addEventListener('load', function() {
-    createTask('Implementando as tarefas no To-Do', 'backend', 'Criado em: 12/03/2025');
-    createTask('Segunda tarefa do To-Do', 'frontend', 'Criado em: 12/03/2025');
-    createTask('Incrementando tarefas no To-Do', 'frontend', 'Criado em: 12/03/2025');
-    createTask('Task com um texto muito grande pra ver até aonde vai, para não dar problema de responsividade e quebrar toda o card da task, colocando mais texto na task até ver onde consigo chegar e tentar quebrar, para depois ajustar', 'como a tag também é colocada pelo usuário, vou fazer um teste também colocando uma tag gigante para ver até aonde da para ir. Testando mais um pouco para ver se vai quebrar o frontend da página, até agora nada de quebrar, mas vamos ver mais agora', 'Criado em: 12/03/2025');
-    createTask('Verificando até aonde vai o To-Do', 'frontend', 'Criado em: 12/03/2025');
-});
+const getNewTaskData = (event) => {
+    const id = getNewTaskId();
+    const title = event.target.elements.title.value;
+    const tag = event.target.elements.tag.value;
+    const now = new Date();
+    const formattedDate = `Criado em: ${now.toLocaleDateString('pt-BR')}`;
+    const tasks = getTasksFromLocalStorage();
+
+    return { id, title, tag, formattedDate, tasks };
+}
+
+const createTask = (event) => {
+    event.preventDefault();
+
+    const newTaskData = getNewTaskData(event);
+    const tasks = getTasksFromLocalStorage();
+    const id = getNewTaskId();
+    
+    const updatedTasks = [
+        ...tasks, 
+        {
+            id: newTaskData.id,
+            title: newTaskData.title,
+            tag: newTaskData.tag,
+            date: newTaskData.formattedDate,
+            completed: false,
+        }
+    ];
+    
+    setTasksInLocalStorage(updatedTasks);
+    renderTaskList(newTaskData);
+}
+
+const setTasksInLocalStorage = (tasks) => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+const getTasksFromLocalStorage = () => {
+    const localTasks = JSON.parse(window.localStorage.getItem('tasks'));
+    
+    return Array.isArray(localTasks) ? localTasks : [];
+}
+
+const getNewTaskId = () => {
+    const tasks = getTasksFromLocalStorage()
+    const lastId = tasks[tasks.length - 1]?.id;
+    return lastId ? lastId + 1 : 1;
+}
+
+window.onload = function() {
+    const form = document.getElementById('create-todo-form');
+    form.addEventListener('submit', createTask);
+    
+    const tasks = getTasksFromLocalStorage();
+    
+    tasks.forEach((task) => {
+        renderTaskList(task);
+    });
+};

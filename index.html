@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
 
-    <!-- Fonts -->
+    <!-- Fonte: Rubik -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Baloo+Bhaijaan+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:wght@100;300;400;500;700;900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-    
+
+    <!-- Fonte: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Baloo+Bhaijaan+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:wght@100;300;400;500;700;900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 
@@ -19,11 +24,16 @@
 <body>
     <main class="container">
         <h1>Board de tarefas</h1>
-        <div class="task">
-            <input type="text" placeholder="Nome da tarefa" id="input-task">
-            <input type="text" placeholder="Etiqueta" id="input-tag">
-            <button onclick="addTask()">+</button>
-        </div>
+        <section id="create-todo-section">
+            <form id="create-todo-form">
+                <input type="text" placeholder="Nome da tarefa" id="input-task">
+                <input type="text" placeholder="Etiqueta" id="input-tag">
+                <button onclick="addTask()">+</button>
+            </form>
+        </section>
+        <section id="todo-section">
+            <ul id="todo-list"></ul>
+        </section>
     </main>
 </body>
 </html>

@@ -31,17 +31,11 @@ const renderTaskList = () => {
             const completed = document.createElement('img');
             completed.src = './assets/check.svg';
             toDo.appendChild(completed);
+            title_ToDo.className = 'title-completed';
         } else {
             const button = document.createElement('button');
             button.textContent = 'Concluir';
-            button.addEventListener('click', () => {
-                const updatedTasks = tasks.map((t) =>
-                    t.id === task.id ? { ...t, completed: true } : t
-                );
-
-                setTasksInLocalStorage(updatedTasks);
-                renderTaskList();
-            });
+            button.setAttribute('onclick', `markTaskCompleted('${taskId}')`);
             toDo.appendChild(button);
         }
 
@@ -53,6 +47,21 @@ const renderTaskList = () => {
         list.appendChild(toDo);
     });
 };
+
+const markTaskCompleted = (taskId) => {
+    const id = taskId.split('-')[0];
+
+    const tasks = getTasksFromLocalStorage();
+    const updatedTasks = tasks.map((task) => {
+        if (parseInt(task.id) === parseInt(id)) {
+            return { ...task, completed: true };
+        }
+        return task;
+    });    
+
+    setTasksInLocalStorage(updatedTasks);
+    renderTaskList();
+}
 
 const getNewTaskData = (event) => {
     const id = getNewTaskId();

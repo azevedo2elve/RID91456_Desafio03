@@ -141,6 +141,14 @@ body {
                         color: #001747;
                         font-family: "Inter", sans-serif;
                     }
+
+                    .title-completed {
+                        font-size: 1.6rem;
+                        font-weight: 500;
+                        color: #8F98A8;
+                        font-family: "Inter", sans-serif;
+                        text-decoration: line-through;
+                    }
                 
                 }
 

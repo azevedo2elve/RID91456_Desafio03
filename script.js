@@ -1,34 +1,58 @@
-const renderTaskList = (task) => {
+const renderTaskList = () => {
     const list = document.querySelector('#todo-list');
 
-    const toDo = document.createElement('li');
-    const title_ToDo = document.createElement('h3');
-    const tagToDo = document.createElement('p');
-    const date = document.createElement('p');
-    const button = document.createElement('button');
-    button.textContent = 'Concluir';
-    const taskId = `${task.id}-task`;
-    
-    const divText = toDo.appendChild(document.createElement('div'));
-    divText.appendChild(title_ToDo);
-    let divTagDate = divText.appendChild(document.createElement('div'));
-    divTagDate.appendChild(tagToDo);
-    divTagDate.appendChild(date);
-    toDo.appendChild(button);
-    list.appendChild(toDo);
+    list.innerHTML = '';
 
-    toDo.className = 'todo';
-    divText.className = 'text-todo';
-    divTagDate.className = 'tag-date';
-    tagToDo.className = 'tag';
-    date.className = 'date';
-    
-    toDo.id = taskId;
-    title_ToDo.textContent = task.title;
-    tagToDo.textContent = task.tag;
-    date.textContent = task.date;
-    button.setAttribute('completed', task.completed);
-}
+    const tasks = getTasksFromLocalStorage();
+
+    tasks.forEach((task) => {
+        const toDo = document.createElement('li');
+        const title_ToDo = document.createElement('h3');
+        const tagToDo = document.createElement('p');
+        const date = document.createElement('p');
+        const taskId = `${task.id}-task`;
+
+        const divText = document.createElement('div');
+        const divTagDate = document.createElement('div');
+
+        divText.appendChild(title_ToDo);
+        divTagDate.appendChild(tagToDo);
+        divTagDate.appendChild(date);
+        divText.appendChild(divTagDate);
+        toDo.appendChild(divText);
+
+        toDo.className = 'todo';
+        divText.className = 'text-todo';
+        divTagDate.className = 'tag-date';
+        tagToDo.className = 'tag';
+        date.className = 'date';
+
+        if (task.completed) {
+            const completed = document.createElement('img');
+            completed.src = './assets/check.svg';
+            toDo.appendChild(completed);
+        } else {
+            const button = document.createElement('button');
+            button.textContent = 'Concluir';
+            button.addEventListener('click', () => {
+                const updatedTasks = tasks.map((t) =>
+                    t.id === task.id ? { ...t, completed: true } : t
+                );
+
+                setTasksInLocalStorage(updatedTasks);
+                renderTaskList();
+            });
+            toDo.appendChild(button);
+        }
+
+        toDo.id = taskId;
+        title_ToDo.textContent = task.title;
+        tagToDo.textContent = task.tag;
+        date.textContent = task.date;
+
+        list.appendChild(toDo);
+    });
+};
 
 const getNewTaskData = (event) => {
     const id = getNewTaskId();
@@ -60,7 +84,11 @@ const createTask = (event) => {
     ];
     
     setTasksInLocalStorage(updatedTasks);
-    renderTaskList(newTaskData);
+
+    document.getElementById('title').value = '';
+    document.getElementById('tag').value = '';
+
+    renderTaskList();
 }
 
 const setTasksInLocalStorage = (tasks) => {
@@ -85,7 +113,5 @@ window.onload = function() {
     
     const tasks = getTasksFromLocalStorage();
     
-    tasks.forEach((task) => {
-        renderTaskList(task);
-    });
+    renderTaskList();
 };

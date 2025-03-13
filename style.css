@@ -7,12 +7,17 @@
     text-align: justify;
 }
 
+html, body {
+    min-height: 100vh
+}
+
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #F5F9FF;
-    height: 100vh;
+    padding: 2rem 0;
 
     h1 {
         font-size: 4rem;
@@ -24,6 +29,7 @@ body {
 
 .container {
     width: 65rem;
+    max-width: 90%;
     height: auto;
     background-color: #FFFFFF;
     border-radius: 1.6rem;

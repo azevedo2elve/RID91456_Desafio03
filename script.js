@@ -75,6 +75,12 @@ const changeCompleted = (taskId, completed) => {
     renderProgress();
 }
 
+const getNewTaskId = () => {
+    const tasks = getTasksFromLocalStorage()
+    const lastId = tasks[tasks.length - 1]?.id;
+    return lastId ? lastId + 1 : 1;
+}
+
 const getNewTaskData = (event) => {
     const id = getNewTaskId();
     const title = event.target.elements.title.value;
@@ -91,7 +97,6 @@ const createTask = (event) => {
 
     const newTaskData = getNewTaskData(event);
     const tasks = getTasksFromLocalStorage();
-    const id = getNewTaskId();
     
     const updatedTasks = [
         ...tasks, 
@@ -122,17 +127,9 @@ const getTasksFromLocalStorage = () => {
     return Array.isArray(localTasks) ? localTasks : [];
 }
 
-const getNewTaskId = () => {
-    const tasks = getTasksFromLocalStorage()
-    const lastId = tasks[tasks.length - 1]?.id;
-    return lastId ? lastId + 1 : 1;
-}
-
 window.onload = function() {
     const form = document.getElementById('create-todo-form');
     form.addEventListener('submit', createTask);
-    
-    const tasks = getTasksFromLocalStorage();
     
     renderProgress();
     renderTaskList();

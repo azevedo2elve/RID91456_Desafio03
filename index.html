@@ -26,9 +26,19 @@
         <h1>Board de tarefas</h1>
         <section id="create-todo-section">
             <form id="create-todo-form">
-                <input type="text" placeholder="Nome da tarefa" id="input-task">
-                <input type="text" placeholder="Etiqueta" id="input-tag">
-                <button onclick="addTask()">+</button>
+                <input 
+                    type="text" 
+                    id="title"
+                    name="title"
+                    placeholder="Nome da tarefa"
+                    aria-label="Nome da tarefa"
+                >
+                <input 
+                    type="text" 
+                    placeholder="Etiqueta" 
+                    id="tag"
+                >
+                <button type="submit" id="save-task" aria-label="Cadastrar tarefa">+</button>
             </form>
         </section>
         <section id="todo-section">

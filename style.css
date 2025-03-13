@@ -192,4 +192,19 @@ body {
             }
         }
     }
+
+    footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: self-end;
+        border-top: 1px solid #EEEEEE;
+        height: 4.2rem;
+
+        p {
+            color: #B1BACB;
+            font-size: 1.6rem;
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+        }
+    }
 }

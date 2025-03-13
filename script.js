@@ -49,6 +49,16 @@ const renderTaskList = () => {
     });
 };
 
+const renderProgress = () => {
+    const progress = document.getElementById('progress');
+    
+    const tasks = getTasksFromLocalStorage();
+    const completedTasks = tasks.filter((task) => task.completed);
+    
+    completedTasks.length > 1 ? progress.textContent = `${completedTasks.length} tarefas concluídas` : progress.textContent = `${completedTasks.length} tarefa concluída`;
+
+}
+
 const changeCompleted = (taskId, completed) => {
     const id = taskId.split('-')[0];
     
@@ -62,6 +72,7 @@ const changeCompleted = (taskId, completed) => {
 
     setTasksInLocalStorage(updatedTasks);
     renderTaskList();
+    renderProgress();
 }
 
 const getNewTaskData = (event) => {
@@ -123,5 +134,6 @@ window.onload = function() {
     
     const tasks = getTasksFromLocalStorage();
     
+    renderProgress();
     renderTaskList();
 };

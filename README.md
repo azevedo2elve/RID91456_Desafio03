@@ -37,7 +37,5 @@ Criar uma aplicação web onde os usuários possam adicionar, concluir e visuali
 ## 🔗 Link do Projeto
 [Acesse aqui](https://blogdevnews.netlify.app/)
 
----
-
 ## 🚀 📌 Autor
 **Projeto desenvolvido por Gabriel Azevedo 🚀**

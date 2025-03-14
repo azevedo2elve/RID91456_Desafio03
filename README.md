@@ -35,7 +35,7 @@ Criar uma aplicação web onde os usuários possam adicionar, concluir e visuali
 2. Abra o arquivo `index.html` diretamente no navegador ou utilize uma extensão como "Live Server" no VS Code para melhor experiência.
 
 ## 🔗 Link do Projeto
-[Acesse aqui](https://blogdevnews.netlify.app/)
+[Acesse aqui](https://todo2elve.netlify.app)
 
 ## 🚀 📌 Autor
 **Projeto desenvolvido por Gabriel Azevedo 🚀**
